@@ -1,0 +1,27 @@
+.root {
+    -fx-background-color: #ffffff;
+    -fx-opacity: 100%;
+}
+
+.main-grid {
+    -fx-background-color: #8dbcc7;
+    -fx-grid-lines-visible: true;
+}
+
+.tile {
+    -fx-background-color: #ffffff;
+    -fx-grid-lines-visible: true;
+}
+
+.field {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 18px;
+    -jfx-focus-color: #ffffff;
+    -jfx-unfocus-color: #ffffff;
+    -fx-padding: 2px;
+    -fx-prompt-text-fill: #f4f4f4;
+}
+
+.highlighted {
+    -fx-background-color: #daf3f5;
+}

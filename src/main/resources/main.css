@@ -4,7 +4,7 @@
 }
 
 .main-grid {
-    -fx-background-color: #8dbcc7;
+    -fx-background-color: #ffffff;
     -fx-grid-lines-visible: true;
 }
 
@@ -19,9 +19,27 @@
     -jfx-focus-color: #ffffff;
     -jfx-unfocus-color: #ffffff;
     -fx-padding: 2px;
-    -fx-prompt-text-fill: #f4f4f4;
+    -fx-prompt-text-fill: #ffffff;
 }
 
 .highlighted {
     -fx-background-color: #daf3f5;
+    -fx-prompt-text-fill: #daf3f5;
+}
+
+.initial {
+    -fx-font-weight: bold;
+}
+
+.wrong {
+    -fx-text-fill: red;
+}
+
+.radio {
+    -jfx-selected-color: #9bd8e0;
+    -jfx-unselected-color: #daf3f5;
+}
+
+.button {
+
 }

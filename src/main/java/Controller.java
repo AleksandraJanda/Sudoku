@@ -42,6 +42,9 @@ public class Controller {
     private List<JFXTextField> tile9 = new ArrayList<>();
     private List<JFXTextField> fields = new ArrayList<>();
     private JFXTextField[][] array = new JFXTextField[9][9];
+    private String[][] filledArray = new String[9][9];
+
+    private int level = 35;
 
     @FXML
     void onClick() {
@@ -52,6 +55,23 @@ public class Controller {
         setDefaultNames();
         setColoringActionsForFields();
         fillSudoku();
+        fillStringArray();
+        removeText(level);
+        disableFilled();
+    }
+
+    // set difficulty
+    @FXML
+    void setEasy() {
+        level = 35;
+    }
+    @FXML
+    void setNormal() {
+        level = 45;
+    }
+    @FXML
+    void setHard() {
+        level = 55;
     }
 
     // define lists, arrays, tiles
@@ -83,7 +103,6 @@ public class Controller {
     }
 
     private void createFieldsList() {
-//        fields = new ArrayList<>();
         fields.addAll(tile1);
         fields.addAll(tile2);
         fields.addAll(tile3);
@@ -97,15 +116,12 @@ public class Controller {
 
     // Sudoku
     private void fillSudoku() {
-        int i = 0;
-        while (fillRows(i, i + 3) > 9) {
-            fillRows(i, i + 3);
-        }
-        i = +3;
-        while (fillRows(i, i + 3) > 9) {
-            fillRows(i, i + 3);
-        }
-        i += 3;
+        fillSection(0);
+        fillSection(3);
+        fillSection(6);
+    }
+
+    private void fillSection(int i) {
         while (fillRows(i, i + 3) > 9) {
             fillRows(i, i + 3);
         }
@@ -137,6 +153,21 @@ public class Controller {
     private void clearSudoku() {
         for (JFXTextField field : fields) {
             field.setText("");
+            field.setEditable(true);
+            field.getStyleClass().remove("initial");
+            field.getStyleClass().remove("wrong");
+        }
+    }
+
+    @FXML
+    void verifySudoku() {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                array[i][j].getStyleClass().remove("wrong");
+                if (!array[i][j].getText().equals("") && !filledArray[i][j].equals(array[i][j].getText())){
+                    array[i][j].getStyleClass().add("wrong");
+                }
+            }
         }
     }
 
@@ -222,6 +253,40 @@ public class Controller {
         I7.setPromptText("I7");
         I8.setPromptText("I8");
         I9.setPromptText("I9");
+    }
+
+    private void fillStringArray() {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++) {
+                filledArray[i][j] = array[i][j].getText();
+            }
+        }
+    }
+
+    private Set<JFXTextField> chooseFieldsToRemoveText(int number) {
+        Set<JFXTextField> set = new HashSet<>();
+        while (set.size() < number) {
+            set.add(fields.get(generateNum(fields.size())));
+        }
+        return set;
+    }
+
+    private void removeText(int number) {
+        Set<JFXTextField> set = chooseFieldsToRemoveText(number);
+        for (JFXTextField field : set) {
+            field.setText("");
+        }
+    }
+
+    private void disableFilled() {
+        for (JFXTextField[] jfxTextFields : array) {
+            for (int j = 0; j < array.length; j++) {
+                if (!jfxTextFields[j].getText().equals("")) {
+                    jfxTextFields[j].setEditable(false);
+                    jfxTextFields[j].getStyleClass().add("initial");
+                }
+            }
+        }
     }
 
     // forbidden fields

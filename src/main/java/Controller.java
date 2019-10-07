@@ -28,7 +28,7 @@ public class Controller {
     @FXML
     JFXTextField I1, I2, I3, I4, I5, I6, I7, I8, I9;
     @FXML
-    JFXButton button;
+    JFXButton generate, check, number1, number2, number3, number4, number5, number6, number7, number8, number9;
 
     private List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
     private List<JFXTextField> tile1 = new ArrayList<>();
@@ -54,6 +54,7 @@ public class Controller {
         createFieldsList();
         setDefaultNames();
         setColoringActionsForFields();
+        setNumberHighlighting();
         fillSudoku();
         fillStringArray();
         removeText(level);
@@ -64,14 +65,19 @@ public class Controller {
     @FXML
     void setEasy() {
         level = 35;
+        onClick();
     }
+
     @FXML
     void setNormal() {
         level = 45;
+        onClick();
     }
+
     @FXML
     void setHard() {
         level = 55;
+        onClick();
     }
 
     // define lists, arrays, tiles
@@ -164,7 +170,7 @@ public class Controller {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
                 array[i][j].getStyleClass().remove("wrong");
-                if (!array[i][j].getText().equals("") && !filledArray[i][j].equals(array[i][j].getText())){
+                if (!array[i][j].getText().equals("") && !filledArray[i][j].equals(array[i][j].getText())) {
                     array[i][j].getStyleClass().add("wrong");
                 }
             }
@@ -356,6 +362,7 @@ public class Controller {
     private void offField(javafx.scene.input.MouseEvent e) {
         for (JFXTextField field : fields) {
             field.getStyleClass().remove("highlighted");
+            field.getStyleClass().remove("highlighted-number");
         }
     }
 
@@ -364,6 +371,38 @@ public class Controller {
             field.setOnMouseEntered(this::onField);
             field.setOnMouseExited(this::offField);
         }
+    }
+
+    private void onNumber(javafx.scene.input.MouseEvent e) {
+        String text = ((JFXButton) e.getSource()).getText();
+        for (JFXTextField[] jfxTextFields : array) {
+            for (int j = 0; j < array.length; j++) {
+                if (jfxTextFields[j].getText().equals(text)) {
+                    jfxTextFields[j].getStyleClass().add("highlighted-number");
+                }
+            }
+        }
+    }
+
+    private void setNumberHighlighting() {
+        number1.setOnMouseEntered(this::onNumber);
+        number2.setOnMouseEntered(this::onNumber);
+        number3.setOnMouseEntered(this::onNumber);
+        number4.setOnMouseEntered(this::onNumber);
+        number5.setOnMouseEntered(this::onNumber);
+        number6.setOnMouseEntered(this::onNumber);
+        number7.setOnMouseEntered(this::onNumber);
+        number8.setOnMouseEntered(this::onNumber);
+        number9.setOnMouseEntered(this::onNumber);
+        number1.setOnMouseExited(this::offField);
+        number2.setOnMouseExited(this::offField);
+        number3.setOnMouseExited(this::offField);
+        number4.setOnMouseExited(this::offField);
+        number5.setOnMouseExited(this::offField);
+        number6.setOnMouseExited(this::offField);
+        number7.setOnMouseExited(this::offField);
+        number8.setOnMouseExited(this::offField);
+        number9.setOnMouseExited(this::offField);
     }
 
 }

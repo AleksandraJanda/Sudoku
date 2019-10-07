@@ -27,6 +27,11 @@
     -fx-prompt-text-fill: #daf3f5;
 }
 
+.highlighted-number {
+    -fx-background-color: #daf3f5;
+    -fx-prompt-text-fill: #daf3f5;
+}
+
 .initial {
     -fx-font-weight: bold;
 }
@@ -41,5 +46,9 @@
 }
 
 .button {
+
+}
+
+.number {
 
 }

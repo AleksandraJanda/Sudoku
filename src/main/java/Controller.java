@@ -28,6 +28,8 @@ public class Controller {
     @FXML
     JFXTextField I1, I2, I3, I4, I5, I6, I7, I8, I9;
     @FXML
+    JFXTextField info;
+    @FXML
     JFXButton generate, check, number1, number2, number3, number4, number5, number6, number7, number8, number9;
 
     private List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -48,6 +50,7 @@ public class Controller {
 
     @FXML
     void onClick() {
+        info.setVisible(false);
         clearSudoku();
         defineArray();
         defineTiles();
@@ -167,14 +170,22 @@ public class Controller {
 
     @FXML
     void verifySudoku() {
+        int count = 0;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array.length; j++) {
                 array[i][j].getStyleClass().remove("wrong");
                 if (!array[i][j].getText().equals("") && !filledArray[i][j].equals(array[i][j].getText())) {
                     array[i][j].getStyleClass().add("wrong");
+                    count++;
                 }
             }
         }
+        if (count > 0) {
+            info.setText("Incorrect");
+        } else {
+            info.setText("Congratulations!!");
+        }
+        info.setVisible(true);
     }
 
     private void setDefaultNames() {
@@ -370,6 +381,7 @@ public class Controller {
         for (JFXTextField field : fields) {
             field.setOnMouseEntered(this::onField);
             field.setOnMouseExited(this::offField);
+            field.setOnMouseClicked(this::clickOnField);
         }
     }
 
@@ -405,4 +417,7 @@ public class Controller {
         number9.setOnMouseExited(this::offField);
     }
 
+    private void clickOnField(javafx.scene.input.MouseEvent e) {
+        info.setVisible(false);
+    }
 }

@@ -166,6 +166,11 @@ public class Controller {
             field.getStyleClass().remove("initial");
             field.getStyleClass().remove("wrong");
         }
+        List<JFXButton> numberFields = Arrays.asList(number1, number2, number3, number4,
+                number5, number6, number7, number8, number9);
+        for (JFXButton button : numberFields) {
+            button.getStyleClass().remove("highlighted-number");
+        }
     }
 
     @FXML
@@ -387,12 +392,17 @@ public class Controller {
 
     private void onNumber(javafx.scene.input.MouseEvent e) {
         String text = ((JFXButton) e.getSource()).getText();
+        int i = 0;
         for (JFXTextField[] jfxTextFields : array) {
             for (int j = 0; j < array.length; j++) {
                 if (jfxTextFields[j].getText().equals(text)) {
                     jfxTextFields[j].getStyleClass().add("highlighted-number");
+                    i++;
                 }
             }
+        }
+        if (i == 9) {
+            ((JFXButton) e.getSource()).getStyleClass().add("highlighted-number");
         }
     }
 
